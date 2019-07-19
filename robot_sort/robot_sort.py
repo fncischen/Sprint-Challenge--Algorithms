@@ -115,7 +115,7 @@ class SortingRobot:
             self.set_light_off()
 
             while self.can_move_right:
-                if self.compare_item() == -1:
+                if self.compare_item() == 1:
                     self.swap_item()
                     self.move_left()
 
@@ -172,6 +172,8 @@ class SortingRobot:
 
     # do this until you've 
 
+d = SortingRobot([8,5,1])
+print(d.sort())
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
