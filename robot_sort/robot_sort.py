@@ -49,6 +49,18 @@ class SortingRobot:
         else:
             return False
 
+    def moveAllTheWayToTheLeft(self):
+        for i in range(self._position, 0, -1):
+            self._position -= 1
+            self._time += 1
+
+    def hitRightDeadEnd(self):
+        if self._position + 1 > len(self._list) - 1:
+            return True
+        else:
+            return False
+
+
     def swap_item(self):
         """
         The robot swaps its currently held item with the list item in front
@@ -96,9 +108,86 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # step 1) turn on the light - this keeps track of whether an object has swapped or not. 
+        self.set_light_on() 
 
+        # step 2) pick up your item and begin moving 
+
+        # step 2) begin moving from left to right, and end swapping once you hit the end of the list
+        while self.light_is_on():
+
+            self.swap_item()
+
+            # turn off the light first and loop through  
+            self.set_light_off()
+            while self.can_move_right:
+
+                if not self.hitRightDeadEnd():
+
+                    # move to next position
+                    self.move_right()
+
+                    if self.compare_item() == 1:
+                        self.swap_item()
+                        self.move_left()
+
+                        # put that item in the front in the right place
+                        self.swap_item()
+                        # go back to your original position
+                        self.move_right()
+
+                        # keep the light on to let the user know that this has been swapped at this iteration of this list. 
+                        self.set_light_on()
+                    else:
+                        # drop the item where you first picked it up
+                        self.move_left()
+                        self.swap_item()
+
+                        # go back to your original position  
+                        self.move_right()
+                    
+                    # pick up the item in your curent position for next iteration
+                    self.swap_item()
+
+                else:
+                    # go back to the beginning of the code, drop what you currently have in your state
+                    if self.light_is_on:
+                        self.swap_item()
+                        self.moveAllTheWayToTheLeft()
+                        break 
+                    else:
+                        # note, if this step always happens, the light will always be off and the swappinng will end. 
+                        break 
+
+        print(self._list)
+
+
+    # plan:
+
+    # use recursion, make the robot work less harder (ideal for large input sizes) by moving less, since
+    # these sort methods will require the robot to move less, saving energy?
+
+    # merge sort
+    # quick sort
+
+    # or use iterative sorts (ideal for small input sizes):
+    
+    #  insertion sort,
+    #  bubble sort, 
+    #  selection sort
+
+    # lets use bubble sort 
+    
+    # first, pick up the first item and begin moving right.
+    # second, turn on the light and compare the item you are at, with the item one is currently holding
+
+    # if the item you have is greater than what is in front of you, swap the positions asap, move the item to the left. 
+    # else put the object back where you picked it up, and pick up the new object on the position where you are at, and continue comparing
+
+    # do this until you've 
+
+d = SortingRobot([8,5,1])
+print(d.sort())
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
