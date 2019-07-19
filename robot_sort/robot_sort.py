@@ -105,45 +105,45 @@ class SortingRobot:
         self.set_light_on() 
 
         # step 2) pick up your item and begin moving 
-        self.swap_item()
-        self.move_right()
 
         # step 2) begin moving from left to right, and end swapping once you hit the end of the list
         while self.light_is_on():
 
+            self.swap_item()
+            self.move_right()
+
             # turn off the light first and loop through  
             self.set_light_off()
-
             while self.can_move_right:
-                if self.compare_item() == 1:
-                    self.swap_item()
-                    self.move_left()
-
-                    # put that item in the front in the right place
-                    self.swap_item()
-                    # go back to your original position
-                    self.move_right()
-
-                    # keep the light on to let the user know that this has been swapped at this iteration of this list. 
-                    self.set_light_on()
-                else:
-                    # drop the item where you first picked it up
-                    self.move_left()
-                    self.swap_item()
-
-                    # go back to your original position  
-                    self.move_right()
-
-                    # note, if this step always happens, the light will always be off and the swappinng will end. 
 
                 if self.can_move_right:
+
+                    if self.compare_item() == 1:
+                        self.swap_item()
+                        self.move_left()
+
+                        # put that item in the front in the right place
+                        self.swap_item()
+                        # go back to your original position
+                        self.move_right()
+
+                        # keep the light on to let the user know that this has been swapped at this iteration of this list. 
+                        self.set_light_on()
+                    else:
+                        # drop the item where you first picked it up
+                        self.move_left()
+                        self.swap_item()
+
+                        # go back to your original position  
+                        self.move_right()
+
+                        # note, if this step always happens, the light will always be off and the swappinng will end. 
                     
-                    # pick up your item and move to the next item to compare. 
-                    self.swap_item()
+                    # move to next position
                     self.move_right()
 
-            if not self.can_move_right:
-                self.moveAllTheWayToTheLeft()
+                else:
+                    self.moveAllTheWayToTheLeft()
 
 
 
