@@ -49,6 +49,11 @@ class SortingRobot:
         else:
             return False
 
+    def moveAllTheWayToTheLeft(self):
+        for i in range(self._position, 0, -1):
+            self._position -= 1
+            self._time += 1
+
     def swap_item(self):
         """
         The robot swaps its currently held item with the list item in front
@@ -96,7 +101,7 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # step 1) turn on the light
+        # step 1) turn on the light - this keeps track of whether an object has swapped or not. 
         self.set_light_on() 
 
         # step 2) pick up your item and begin moving 
@@ -104,27 +109,43 @@ class SortingRobot:
         self.move_right()
 
         # step 2) begin moving from left to right, and end swapping once you hit the end of the list
-        while self.light_is_on(): 
-            if self.compare_item() == -1:
-                self.swap_item()
-                self.move_left()
+        while self.light_is_on():
 
-                # put that item in the front in the right place
-                self.swap_item()
-                # go back to your original position
-                self.move_right()
-            else:
-                # drop the item where you first picked it up
-                self.move_left()
-                self.swap_item()
-                # go back to your original position  
-            if self.can_move_right:
-                
-                # pick up your item and move to the next item to compare. 
-                self.swap_item()
-                self.move_right()
-            else:
-                self.move_left()
+            # turn off the light first and loop through  
+            self.set_light_off()
+
+            while self.can_move_right:
+                if self.compare_item() == -1:
+                    self.swap_item()
+                    self.move_left()
+
+                    # put that item in the front in the right place
+                    self.swap_item()
+                    # go back to your original position
+                    self.move_right()
+
+                    # keep the light on to let the user know that this has been swapped at this iteration of this list. 
+                    self.set_light_on()
+                else:
+                    # drop the item where you first picked it up
+                    self.move_left()
+                    self.swap_item()
+
+                    # go back to your original position  
+                    self.move_right()
+
+                    # note, if this step always happens, the light will always be off and the swappinng will end. 
+
+                if self.can_move_right:
+                    
+                    # pick up your item and move to the next item to compare. 
+                    self.swap_item()
+                    self.move_right()
+
+            if not self.can_move_right:
+                self.moveAllTheWayToTheLeft()
+
+
 
 
     # plan:
@@ -147,6 +168,9 @@ class SortingRobot:
     # second, turn on the light and compare the item you are at, with the item one is currently holding
 
     # if the item you have is greater than what is in front of you, swap the positions asap, move the item to the left. 
+    # else put the object back where you picked it up, and pick up the new object on the position where you are at, and continue comparing
+
+    # do this until you've 
 
 
 if __name__ == "__main__":
