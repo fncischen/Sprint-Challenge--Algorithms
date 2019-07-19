@@ -54,6 +54,13 @@ class SortingRobot:
             self._position -= 1
             self._time += 1
 
+    def hitRightDeadEnd(self):
+        if self._position + 1 > len(self._list) - 1:
+            return True
+        else:
+            return False
+
+
     def swap_item(self):
         """
         The robot swaps its currently held item with the list item in front
@@ -116,7 +123,7 @@ class SortingRobot:
             self.set_light_off()
             while self.can_move_right:
 
-                if self.can_move_right:
+                if not self.hitRightDeadEnd():
 
                     if self.compare_item() == 1:
                         self.swap_item()
@@ -136,16 +143,24 @@ class SortingRobot:
 
                         # go back to your original position  
                         self.move_right()
+                        
 
                         # note, if this step always happens, the light will always be off and the swappinng will end. 
                     
-                    # move to next position
+                    # pick up the item in your curent position for next iteration
+                    self.swap_item()
+
+                     # move to next position
                     self.move_right()
 
                 else:
-                    self.moveAllTheWayToTheLeft()
+                    if self.light_is_on:
+                        self.moveAllTheWayToTheLeft()
+                        break 
+                    else:
+                        break 
 
-
+        print(self._list)
 
 
     # plan:
