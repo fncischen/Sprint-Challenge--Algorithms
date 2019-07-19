@@ -96,8 +96,36 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # step 1) turn on the light
+        self.set_light_on() 
+
+        # step 2) pick up your item and begin moving 
+        self.swap_item()
+        self.move_right()
+
+        # step 2) begin moving from left to right, and end swapping once you hit the end of the list
+        while self.light_is_on(): 
+            if self.compare_item() == -1:
+                self.swap_item()
+                self.move_left()
+
+                # put that item in the front in the right place
+                self.swap_item()
+                # go back to your original position
+                self.move_right()
+            else:
+                # drop the item where you first picked it up
+                self.move_left()
+                self.swap_item()
+                # go back to your original position  
+            if self.can_move_right:
+                
+                # pick up your item and move to the next item to compare. 
+                self.swap_item()
+                self.move_right()
+            else:
+                self.move_left()
+
 
     # plan:
 
@@ -113,12 +141,13 @@ class SortingRobot:
     #  bubble sort, 
     #  selection sort
 
-    # lets use merge sort
+    # lets use bubble sort 
+    
+    # first, pick up the first item and begin moving right.
+    # second, turn on the light and compare the item you are at, with the item one is currently holding
 
-    # key constraint) turn the robot's light off, if you are in the process of splitting a list. (split!)
-    # key constraint) turn the robots light on, if you are in the process of merging a list. (sort!)  
+    # if the item you have is greater than what is in front of you, swap the positions asap, move the item to the left. 
 
-    # step 1) 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
