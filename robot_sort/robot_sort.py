@@ -113,8 +113,7 @@ class SortingRobot:
     #  bubble sort, 
     #  selection sort
 
-    # oh wait, recursion requires you to declare variables, which we aren't allowed to do.
-    # therefore, we have to use iterative sort. 
+    # lets use merge sort
 
     # key constraint) turn the robot's light off, if you are in the process of splitting a list. (split!)
     # key constraint) turn the robots light on, if you are in the process of merging a list. (sort!)  
