@@ -99,6 +99,27 @@ class SortingRobot:
         # Fill this out
         pass
 
+    # plan:
+
+    # use recursion, make the robot work less harder (ideal for large input sizes) by moving less, since
+    # these sort methods will require the robot to move less, saving energy?
+
+    # merge sort
+    # quick sort
+
+    # or use iterative sorts (ideal for small input sizes):
+    
+    #  insertion sort,
+    #  bubble sort, 
+    #  selection sort
+
+    # oh wait, recursion requires you to declare variables, which we aren't allowed to do.
+    # therefore, we have to use iterative sort. 
+
+    # key constraint) turn the robot's light off, if you are in the process of splitting a list. (split!)
+    # key constraint) turn the robots light on, if you are in the process of merging a list. (sort!)  
+
+    # step 1) 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
