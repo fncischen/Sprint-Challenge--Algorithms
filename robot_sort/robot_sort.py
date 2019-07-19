@@ -145,19 +145,18 @@ class SortingRobot:
 
                         # go back to your original position  
                         self.move_right()
-                        
-
-                        # note, if this step always happens, the light will always be off and the swappinng will end. 
                     
                     # pick up the item in your curent position for next iteration
                     self.swap_item()
 
                 else:
+                    # go back to the beginning of the code, drop what you currently have in your state
                     if self.light_is_on:
                         self.swap_item()
                         self.moveAllTheWayToTheLeft()
                         break 
                     else:
+                        # note, if this step always happens, the light will always be off and the swappinng will end. 
                         break 
 
         print(self._list)
